@@ -1,0 +1,22 @@
+---
+- name: start nginx
+  hosts: my
+  vars:
+    ansible_ssh_user: user
+  become: true
+  become_method: sudo
+  gather_facts: yes
+
+  tasks:
+    - name: install nginx
+      apt:
+        update_cache: yes
+        name: nginx
+        state: present
+
+    - name: enabled nginx
+      systemd:
+        name: nginx 
+        state: started
+        enabled: yes
+
